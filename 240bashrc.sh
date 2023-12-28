@@ -9,11 +9,11 @@ fi
 
 if [[ ! -f /usercode/.vscode/tasks.json ]]; then 
   if [[ -f /usercode/Makefile ]]; then 
-    cp /usercode/.vscode/make/* /usercode/.vscode
+    cp /usercode/.vscode/240config/make/* /usercode/.vscode
   elif ls /usercode/*.cpp 1> /dev/null 2>&1; then
-    cp /usercode/.vscode/c++/* /usercode/.vscode
+    cp /usercode/.vscode/240config/c++/* /usercode/.vscode
   elif ls /usercode/*.c 1> /dev/null 2>&1; then
-    cp /usercode/.vscode/c/* /usercode/.vscode
+    cp /usercode/.vscode/240config/c/* /usercode/.vscode
   fi   
 fi 
 
