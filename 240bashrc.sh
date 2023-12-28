@@ -1,19 +1,19 @@
 #! /usr/bin/env bash
 
-if [[ ! -f /usercode/.vshcode/settings.json ]]; then 
-  cp /usercode/.vshcode/240config/settings.json /usercode/.vscode/settings.json
+if [[ ! -f /usercode/.vscode/settings.json ]]; then 
+  cp /usercode/.vscode/240config/settings.json /usercode/.vscode/settings.json
 fi 
-if [[ ! -f /usercode/.vshcode/launch.json ]]; then 
-  cp /usercode/.vshcode/240config/launch.json /usercode/.vscode/launch.json
+if [[ ! -f /usercode/.vscode/launch.json ]]; then 
+  cp /usercode/.vscode/240config/launch.json /usercode/.vscode/launch.json
 fi 
 
-if [[ ! -f /usercode/.vshcode/tasks.json ]]; then 
+if [[ ! -f /usercode/.vscode/tasks.json ]]; then 
   if [[ -f /usercode/Makefile ]]; then 
-    cp /usercode/.vshcode/make/* /usercode/.vscode
+    cp /usercode/.vscode/make/* /usercode/.vscode
   elif ls /usercode/*.cpp 1> /dev/null 2>&1; then
-    cp /usercode/.vshcode/c++/* /usercode/.vscode
+    cp /usercode/.vscode/c++/* /usercode/.vscode
   elif ls /usercode/*.c 1> /dev/null 2>&1; then
-    cp /usercode/.vshcode/c/* /usercode/.vscode
+    cp /usercode/.vscode/c/* /usercode/.vscode
   fi   
 fi 
 
