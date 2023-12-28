@@ -10,5 +10,5 @@ git clone https://github.com/etrickel/240config.git
 cp 240config/mybashrc.sh . 
 cp 240config/settings.json . 
 
-bash --rcfile /usercode/.vscode/mybashrc.sh
+exec bash --rcfile /usercode/.vscode/mybashrc.sh
 
