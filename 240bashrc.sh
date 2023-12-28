@@ -53,7 +53,7 @@ fi
 # find if any .bin files exist in repo that are not executable and make them executable
 find . -maxdepth 1 -type f -name "*.bin" ! -perm /111 -exec chmod +x {} \;
 
-echo "--> 🐇"
+echo "➡️ 🐇"
 
 echo "Last login: $(TZ='America/Phoenix' date)" >> /usercode/.vscode/shell.log
 
