@@ -1,0 +1,1 @@
+g++ -Wall -Werror -fprofile-arcs -ftest-coverage -g main.cpp -o main.bin
