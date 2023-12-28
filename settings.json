@@ -11,7 +11,7 @@
     "terminal.integrated.defaultProfile.linux": "mybash",
     "code-runner.executorMap":{
       "sh": " cd /usercode && ckear && printf 'Run with:\\033[48;5;33m\\033[1;38;5;226m ./main.sh  \\033[0m \n'",
-      "c": " cd /usercode && find . -name '*.gcda' -exec rm {} + ;  clear && printf 'To Compile use:\\033[48;5;33m\\033[1;38;5;226m gcc -Wall -Werror -fprofile-arcs -ftest-coverage -g main.c -o main.bin  \\033[0m \\n' && printf 'To run use    :\\033[48;5;33m\\033[1;38;5;226m ./main.bin \\033[0m \\n' ",
-      "cpp": " cd /usercode && clear && printf '\\033[48;5;33m\\033[1;38;5;226m g++ -Wall -Werror -fprofile-arcs -ftest-coverage  -g main.cpp -o ./main.bin\\033[0m\n' "
+      "c": " cd /usercode && find . -name '*.gcda' -exec rm {} + ;  clear && if [[ -f /usercode/Makefile ]]; then printf 'To Compile use:\\033[48;5;33m\\033[1;38;5;226m make  \\033[0m \\n'; else printf 'To Compile use:\\033[48;5;33m\\033[1;38;5;226m gcc -Wall -Werror -fprofile-arcs -ftest-coverage -g main.c -o main.bin  \\033[0m \\n'; fi ; printf 'To run use    :\\033[48;5;33m\\033[1;38;5;226m ./main.bin \\033[0m \\n' ",
+      "cpp": " cd /usercode && find . -name '*.gcda' -exec rm {} + ; clear && if [[ -f /usercode/Makefile ]]; then printf 'To Compile use:\\033[48;5;33m\\033[1;38;5;226m make  \\033[0m \\n'; else printf '\\033[48;5;33m\\033[1;38;5;226m g++ -Wall -Werror -fprofile-arcs -ftest-coverage  -g main.cpp -o ./main.bin\\033[0m\n' "
      }
 }
