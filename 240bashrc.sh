@@ -3,7 +3,9 @@
 if [[ ! -f /usercode/.vscode/settings.json ]]; then 
   cp /usercode/.vscode/240config/settings.json /usercode/.vscode/settings.json
 fi 
+
 if [[ ! -f /usercode/.vscode/launch.json ]]; then 
+  echo "Copying launch.json"
   cp /usercode/.vscode/240config/launch.json /usercode/.vscode/launch.json
 fi 
 
