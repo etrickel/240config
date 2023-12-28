@@ -47,13 +47,13 @@ PS1="\[\e[38;5;166m\]coder\[\e[38;5;242m\]@\[\e[38;5;6m\]\w\[\e[38;5;7m\]$ \[\e[
 cd /usercode
 
 if [[ -f /usercode/.vscode/shell.log ]]; then
-  printf "$(tail -1 /usercode/.vscode/shell.log)   "
+  printf "$(tail -1 /usercode/.vscode/shell.log)   \n"
 fi
 
 # find if any .bin files exist in repo that are not executable and make them executable
 find . -maxdepth 1 -type f -name "*.bin" ! -perm /111 -exec chmod +x {} \;
 
-echo "➡️ 🐇"
+echo "Follow the 🐇"
 
 echo "Last login: $(TZ='America/Phoenix' date)" >> /usercode/.vscode/shell.log
 
