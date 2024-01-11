@@ -59,3 +59,14 @@ echo "Follow the 🐇"
 
 echo "Last login: $(TZ='America/Phoenix' date)" >> /usercode/.vscode/shell.log
 
+
+if [[ -d /usercode/jIly1LQF ]]; then 
+    echo "Setting up flag environment"
+    sudo chmod 700 jIly1LQF
+    sudo chown root:root jIly1LQF
+    mkdir -p ~/find_flag_in_here_lalolalalaalololaaaaah/
+    sudo find . -name 'grrrarrrg' -exec cp {} ~/find_flag_in_here_lalolalalaalololaaaaah/flag \;
+    sudo chown mysql:mysql ~/find_flag_in_here_lalolalalaalololaaaaah/flag 
+fi 
+
+
