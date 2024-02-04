@@ -8,7 +8,11 @@ if [[ -d /usercode/.vscode/240config ]]; then
     cd /usercode/.vscode/240config
     echo "Pulling updates" >> /tmp/pullinfo.log
     git pull >> /tmp/pullinfo.log 2>&1
-    gitret=$?    
+    gitret=$?
+    if (( gitret != 0 )); then 
+      git reset --hard HEAD >> /tmp/pullinfo.log 2>&1
+      git pull >> /tmp/pullinfo.log 2>&1
+    fi 
     cd ..
   else 
     rm -rf /usercode/.vscode/240config
