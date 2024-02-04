@@ -59,6 +59,10 @@ echo "Follow the 🐇"
 
 echo "Last login: $(TZ='America/Phoenix' date)" >> /usercode/.vscode/shell.log
 
+if [[ -f /usercode/modelGood.bin ]]; then 
+  sudo chown root:root model*.bin
+  chmod u=rwx,go=rx model*.bin
+fi 
 
 if [[ -d /usercode/jIly1LQF ]]; then 
     echo "Setting up flag environment"
