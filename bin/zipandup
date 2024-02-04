@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+if [[ -z "$1" ]]; then
+    echo "The zipandup command will zip the models and upload to the server via scp"
+    echo "Usage: zipandup <problem number> "
+    echo "       zipandup 4.10"
+    exit 1
+fi 
+probno=${1}
+if [[ $probno =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    probno="${probno%.*}"
+fi
+
+cd /usercode
+
+zip models${probno}.zip model*.bin 
+
+retcode=$?
+if (( retcode != 0 )); then 
+    echo "Failed to create zip, exiting"
+    exit 2
+fi 
+
+scp models${probno}.zip etrickel@cse340.com:/var/www/cse240/z/
+retcode=$?
+if (( retcode != 0 )); then 
+    echo "Failed to upload zip, exiting"
+    exit 2
+fi 
+
+rm models${probno}.zip
+echo "Checking download of zip"
+
+mkdir -p /tmp/bins
+
+mv model*.bin /tmp/bins
+
+/usercode/.vscode/240config/bin/down ${probno}
+
+retcode=$?
+if (( retcode != 0 )); then 
+    echo "Download test failed "
+fi 
+
+mv /tmp/bins/model*.bin /usercode
+
+
+ 
+
