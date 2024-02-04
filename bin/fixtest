@@ -8,14 +8,14 @@ find . -maxdepth 1 -type d -name 'test_bench' -prune -o -type f -name 'test[0-9]
     fi 
     if grep -q 'make clean' "$file"; then 
         if grep -q -E '^#.*make clean' "$file"; then 
-            echo "Will modify because make clean is commented out."
-        else
+            echo "Will modify $file because make clean is commented out."
+        else            
             continue
         fi 
     fi 
-    
+
     # check whether the condition of the if statement is already there.    
-    if grep  -e '$targetBinary != \*"model"\*' "$file"; then
+    if ! grep  -e '$targetBinary != \*"model"\*' "$file"; then
         # Use awk to process the file
         awk '
             # Set the flag to 0 by default
