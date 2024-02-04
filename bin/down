@@ -18,13 +18,21 @@ curl -LsO https://cse240.com/z/${zipfile}
 retcode=$?
 
 if (( retcode != 0 )); then 
-    echo "Failed to download zip file ${zipfile}."
+    echo "Failed to download zip file ${zipfile}"
     exit 2
 fi 
 
 cd /usercode
 
-unzip /tmp/models*.zip 
+unzip /tmp/models*.zip |grep -oh "model.*bin" > /tmp/unzip.log
+retcode=$?
+
+if (( retcode == 0 )); then 
+  echo "Sucessfully unziped $(cat /tmp/unzip.log | tr '\n' ',' | head -c -1 )"
+else
+  echo "Failed to unzip /tmp/${zipfile}"
+  exit 2
+fi 
 
 if [[ -f /usercode/modelGood.bin ]]; then 
   sudo chown root:root model*.bin
