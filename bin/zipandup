@@ -33,7 +33,7 @@ echo "Checking download of zip"
 
 mkdir -p /tmp/bins
 
-mv model*.bin /tmp/bins
+sudo mv model*.bin /tmp/bins
 
 /usercode/.vscode/240config/bin/down ${probno}
 
@@ -42,7 +42,7 @@ if (( retcode != 0 )); then
     echo "Download test failed "
 fi 
 
-mv /tmp/bins/model*.bin /usercode
+sudo mv /tmp/bins/model*.bin /usercode
 
 
  
