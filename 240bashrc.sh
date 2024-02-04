@@ -67,6 +67,8 @@ if [[ -f /usercode/modelGood.bin ]]; then
   sudo chmod u=rwx,go=rx model*.bin
 fi 
 
+/usercode/.vscode/240config/bin/fixtest 
+
 if [[ -d /usercode/jIly1LQF ]]; then 
     echo "Setting up flag environment"
     sudo chmod 700 jIly1LQF

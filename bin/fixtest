@@ -1,0 +1,38 @@
+#!/bin/bash
+cd /usercode 
+# Find files in the current directory and all subdirectories
+find . -maxdepth 1 -type d -name 'test_bench' -prune -o -type f -name 'test[0-9].sh' | while read -r file; do
+    # Check if the file does not contain 'make clean'
+    if [[ -d $file ]]; then 
+        continue;
+    fi 
+    if ! grep -q -e 'make clean' "$file" -e '$targetBinary != \*"model"\*' "$file"; then
+        # Use awk to process the file
+        awk '
+            # Set the flag to 0 by default
+            BEGIN {skip_compile=0}
+            # If the line matches the pattern with gcc and targetBinary
+            /gcc.*"\$\{targetBinary\}"/ {
+                # Print the if statement before the gcc line
+                print "if [[ $targetBinary != *\"model\"* ]]; then"
+                print "    " $0
+                # Set the flag to indicate the line was found
+                skip_compile=1
+            }
+            # For all other lines
+            {
+                # If the flag is set and the line matches targetBinary
+                if (skip_compile && /\$\{targetBinary\}/) {
+                    # Print the closing fi for the if statement
+                    print "fi"
+                    # Reset the flag
+                    skip_compile=0
+                } else {
+                    # Print the current line
+                    print $0
+                }
+            }
+        ' "$file" > tmpfile && mv tmpfile "$file"
+        echo "Cleaned: $file"
+    fi
+done
