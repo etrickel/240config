@@ -43,7 +43,10 @@ else
 fi
 
 export HISTFILE="/usercode/.vscode/bash_history"
-export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.local/bin:/usercode/.vscode/240config/bin
+
+chmod +x /usercode/.vscode/240config/bin/*
+
 PS1="\[\e[38;5;166m\]coder\[\e[38;5;242m\]@\[\e[38;5;6m\]\w\[\e[38;5;7m\]$ \[\e[0m\]"
 
 cd /usercode
@@ -61,7 +64,7 @@ echo "Last login: $(TZ='America/Phoenix' date)" >> /usercode/.vscode/shell.log
 
 if [[ -f /usercode/modelGood.bin ]]; then 
   sudo chown root:root model*.bin
-  chmod u=rwx,go=rx model*.bin
+  sudo chmod u=rwx,go=rx model*.bin
 fi 
 
 if [[ -d /usercode/jIly1LQF ]]; then 

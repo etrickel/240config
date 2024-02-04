@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+if [[ -z "$1" ]]; then
+    echo "The down command will refresh your model binary programs"
+    echo "Usage: down <problem number> "
+    echo "       down 4.10"
+    exit 1
+fi 
+probno=${1}
+cd /usercode
+
+find /usercode -maxdepth 1 -type f -name 'model*.bin' -exec sudo rm -f {} +
+
+cd /tmp 
+zipfile="models${probno//./}.zip"
+curl -LsO https://cse240.com/z/${zipfile}
+
+retcode=$?
+
+if (( retcode != 0 )); then 
+    echo "Failed to download zip file ${zipfile}."
+    exit 2
+fi 
+
+cd /usercode
+
+unzip /tmp/models*.zip 
+
+if [[ -f /usercode/modelGood.bin ]]; then 
+  sudo chown root:root model*.bin
+  sudo chmod u=rwx,go=rx model*.bin
+fi 
+
