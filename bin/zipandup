@@ -21,7 +21,7 @@ if (( retcode != 0 )); then
     exit 2
 fi 
 
-scp models${probno}.zip etrickel@cse340.com:/var/www/cse240/z/
+scp models${probno}.zip etrickel@cse240.com:/var/www/cse240/z/
 retcode=$?
 if (( retcode != 0 )); then 
     echo "Failed to upload zip, exiting"
