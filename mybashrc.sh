@@ -9,7 +9,7 @@ if [[ -d /usercode/.vscode/240config ]]; then
   git clone https://github.com/etrickel/240config.git  --depth 1 >> /tmp/pullinfo.log 2>&1
   gitret=$?
   if (( gitret == 0 )); then 
-    echo "cloned 240config repo"
+    echo "cloned 240config repo" >> /tmp/pullinfo.log
     rm -rf /usercode/.vscode/240config/.git 
   else
     mv /usercode/.vscode/240config /tmp
