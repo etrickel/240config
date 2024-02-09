@@ -1,44 +1,21 @@
+
 source ~/.bashrc
 
 date >> /tmp/pullinfo.log
 
 if [[ -d /usercode/.vscode/240config ]]; then
- 
-  if [[ -d /usercode/.vscode/240config/.git ]]; then
-    cd /usercode/.vscode/240config
-    echo "Pulling updates" >> /tmp/pullinfo.log
-    git pull >> /tmp/pullinfo.log 2>&1
-    gitret=$?
-    if (( gitret != 0 )); then 
-      git reset --hard HEAD >> /tmp/pullinfo.log 2>&1
-      git pull >> /tmp/pullinfo.log 2>&1
-    fi 
-    cd ..
-  else 
-    rm -rf /usercode/.vscode/240config
-    cd /usercode/.vscode
-    git clone https://github.com/etrickel/240config.git  >> /tmp/pullinfo.log 2>&1
-    gitret=$?
-  fi
-  if [[ ! -f /usercode/.vscode/240config/240bashrc.sh ]]; then
-    cd /usercode/.vscode/240config
-    echo "Reseting git repo"
-    git reset --hard HEAD >> /tmp/pullinfo.log 2>&1
-    gitret=$?
-    cd ..
-  fi  
-else  # if 240config does not exist then clone
-  cd /usercode/.vscode
-  echo "240config does not exist cloning repo" >> /tmp/pullinfo.log
-  git clone https://github.com/etrickel/240config.git  >> /tmp/pullinfo.log 2>&1
+  mv /usercode/.vscode/240config /tmp
+  cd /usercode/.vscode 
+  git clone https://github.com/etrickel/240config.git  --depth 1 >> /tmp/pullinfo.log 2>&1
   gitret=$?
+  if (( gitret == 0 )); then 
+    echo "cloned 240config repo"
+    rm -rf /usercode/.vscode/240config/.git 
+  else
+    mv /usercode/.vscode/240config /tmp
+  fi 
 fi 
-if (( gitret != 0 )); then # if active above fails attempt to re-clone 240config repo
-  rm -rf /usercode/.vscode/240config
-  cd /usercode/.vscode
-  git clone https://github.com/etrickel/240config.git  >> /tmp/pullinfo.log 2>&1
-  gitret=$?
-fi 
+
 if (( gitret == 0 )); then 
   mbGitSourceFile="/usercode/.vscode/240config/mybashrc.sh"
   if [ -f "$mbGitSourceFile" ]; then
