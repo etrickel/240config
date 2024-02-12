@@ -63,8 +63,8 @@ echo "Follow the 🐇"
 echo "Last login: $(TZ='America/Phoenix' date)" >> /usercode/.vscode/shell.log
 
 if [[ -f /usercode/modelGood.bin ]]; then 
-  sudo chown root:root model*.bin
-  sudo chmod u=rwx,go=rx model*.bin
+  # sudo chown root:root model*.bin
+  sudo chmod u=rx,go=rx model*.bin
 fi 
 
 /usercode/.vscode/240config/bin/fixtest 
