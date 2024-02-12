@@ -64,7 +64,7 @@ echo "Last login: $(TZ='America/Phoenix' date)" >> /usercode/.vscode/shell.log
 
 if [[ -f /usercode/modelGood.bin ]]; then 
   # sudo chown root:root model*.bin
-  sudo chmod u=rx,go=rx model*.bin
+  chmod u=rx,go=rx model*.bin 2> /dev/null
 fi 
 
 /usercode/.vscode/240config/bin/fixtest 
