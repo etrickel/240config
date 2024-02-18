@@ -78,4 +78,19 @@ if [[ -d /usercode/jIly1LQF ]]; then
     sudo chown mysql:mysql ~/find_flag_in_here_lalolalalaalololaaaaah/flag 
 fi 
 
+# if MUDv1 exists but modelGood.bin does not then try it out.
+if [ -f "/usercode/modelMUDv1.bin" ] && [ ! -f /usercode/modelGood.bin ] ;then 
+
+  ACTUAL_MD5=$(md5sum "/usercode/modelMUDv1.bin" | awk '{ print $1 }')
+  # Compare the actual MD5 checksum to the expected one
+  if [ "$ACTUAL_MD5" == "b562cdb2a1992541fa12fb3a0e015fe6" ]; then    
+    if [[ -f /usercode/test3.sh ]]; then # should be 6.2
+      /usercode/.vscode/240config/bin/down 6.2
+    else 
+      /usercode/.vscode/240config/bin/down 6.1
+    fi
+    cp /usercode/modelGood.bin /usercode/modelMUDv1.bin 
+  fi 
+  
+fi 
 

@@ -13,11 +13,11 @@ fi
 
 cd /usercode
 
-find /usercode -maxdepth 1 -type f -name 'model*.bin' -exec sudo rm -f {} +
+find /usercode -maxdepth 1 -type f -name 'model*.bin' -exec rm -f {} +
 
 cd /tmp 
 
-find /tmp -maxdepth 1 -type f -name 'models*.zip' -exec sudo rm -f {} +
+find /tmp -maxdepth 1 -type f -name 'models*.zip' -exec rm -f {} +
 
 zipfile="models${probno//./}.zip"
 curl -LsO https://cse240.com/z/${zipfile}
@@ -42,7 +42,6 @@ else
 fi 
 
 if [[ -f /usercode/modelGood.bin ]]; then 
-  sudo chown root:root model*.bin
-  sudo chmod u=rwx,go=rx model*.bin
+  chmod u=rwx,go=rx model*.bin
 fi 
 

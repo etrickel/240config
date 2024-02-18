@@ -13,7 +13,7 @@ fi
 
 cd /usercode
 
-zip models${probno}.zip model*.bin 
+zip models${probno//./}.zip model*.bin 
 
 retcode=$?
 if (( retcode != 0 )); then 
@@ -21,29 +21,14 @@ if (( retcode != 0 )); then
     exit 2
 fi 
 
-scp -o StrictHostKeyChecking=no models${probno}.zip etrickel@cse240.com:/var/www/cse240/z/
+scp -o StrictHostKeyChecking=no models${probno//./}.zip etrickel@cse240.com:/var/www/cse240/z/
 retcode=$?
 if (( retcode != 0 )); then 
     echo "Failed to upload zip, exiting"
     exit 2
 fi 
 
-rm models${probno}.zip
-echo "Checking download of zip"
-
-mkdir -p /tmp/bins
-
-sudo mv model*.bin /tmp/bins
-
-/usercode/.vscode/240config/bin/down ${probno}
-
-retcode=$?
-if (( retcode != 0 )); then 
-    echo "Download test failed "
-fi 
-
-sudo mv /tmp/bins/model*.bin /usercode
+rm models${probno//./}.zip
 
 
- 
 
