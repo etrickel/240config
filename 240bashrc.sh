@@ -94,3 +94,11 @@ if [ -f "/usercode/modelMUDv1.bin" ] && [ ! -f /usercode/modelGood.bin ] ;then
   
 fi 
 
+# if MUDv1 exists but modelGood.bin does not then try it out.
+if [ -f "/usercode/songsminor.csv" ] ;then 
+
+  sed 's/testLoadSongsTest_LastValue/testLoadSongs_TestLastValue/g' -i test.c
+  sed 's/testLoadSongsTest_FirstValue/testLoadSongs_TestFirstValue/g' -i test.c
+    
+fi 
+
