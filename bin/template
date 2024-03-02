@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+check_format() {
+    local input="$1"
+    # Regular expression to match the format number.number
+    local regex='^[0-9]+(\.[0-9]+)?$'
+
+    if [[ $input =~ $regex ]]; then
+        echo "The input matches the format number.number."
+    else
+        echo "Error: The input does not match the required format number.number."
+        exit 1
+    fi
+}
+if [[ -z "$1" ]]; then
+    echo "The template command will create a template directory with the current template it will delete a template folder if it already exists"
+    echo "Usage: template <problem number> "
+    echo "       template 4.10"
+    exit 1
+else    
+    check_format "$1"
+fi 
+
+if [ -d /usercode/template ]; then
+    rm -rf /usercode/template
+fi 
+
+cd /usercode
+
+git clone https://github.com/etrickel/cse240-templates.git /tmp/cse240-templates
+ret=$?
+
+if (( $ret != 0 )); then
+    echo "Failed to clone templates from github, try again later"
+    exit 1
+fi 
+
+templatesrc="/tmp/cse240-templates/level-$1"
+if [ -d  "$templatesrc" ]; then
+
+    cp -a "$templatesrc" /usercode/template
+
+    if [ -d  "/usercode/template" ]; then
+        echo "template downloaded and copied to /usercode/template successfully"    
+    else
+        echo "template was not successfully created"
+        exit 2
+    fi 
+else
+    echo "Could not find $templatesrc, is the level and problem number current stored in the templates repository?"
+    exit 2
+fi 
+
+
