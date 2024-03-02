@@ -11,6 +11,27 @@ check_format() {
         exit 1
     fi
 }
+# Function to transform the input number
+transform_number() {
+    local input="$1"
+    local leading0=""
+    if [[ $input =~ ^([0-9])\.([0-9]+)$ ]]; then
+        leading0="0"
+    fi 
+    # Check if the input matches the format number.number
+    if [[ $input =~ ^([0-9]+)\.([0-9])$ ]]; then
+        # Extract whole number and decimal parts
+        local whole=${BASH_REMATCH[1]}
+        local decimal=${BASH_REMATCH[2]}
+        # Transform the input to have two decimal places
+        local transformed="${leading0}${whole}.0${decimal}"
+        echo $transformed
+    else
+        # Input does not need transformation or doesn't match the expected format
+        echo $input
+    fi
+}
+
 if [[ -z "$1" ]]; then
     echo "The template command will create a template directory with the current template it will delete a template folder if it already exists"
     echo "Usage: template <problem number> "
@@ -18,6 +39,8 @@ if [[ -z "$1" ]]; then
     exit 1
 else    
     check_format "$1"
+    levelvalue=$(transform_number "$1")
+    echo "level value = $levelvalue"
 fi 
 
 if [ -d /usercode/template ]; then
@@ -25,16 +48,17 @@ if [ -d /usercode/template ]; then
 fi 
 
 cd /usercode
+if [ ! -d /tmp/cse240-templates ]; then 
+    git clone https://github.com/etrickel/cse240-templates.git /tmp/cse240-templates
+    ret=$?
 
-git clone https://github.com/etrickel/cse240-templates.git /tmp/cse240-templates
-ret=$?
-
-if (( $ret != 0 )); then
-    echo "Failed to clone templates from github, try again later"
-    exit 1
+    if (( $ret != 0 )); then
+        echo "Failed to clone templates from github, try again later"
+        exit 1
+    fi 
 fi 
 
-templatesrc="/tmp/cse240-templates/level-$1"
+templatesrc="/tmp/cse240-templates/level-$levelvalue"
 if [ -d  "$templatesrc" ]; then
 
     cp -a "$templatesrc" /usercode/template
