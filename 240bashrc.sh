@@ -19,6 +19,13 @@ if [[ ! -f /usercode/.vscode/tasks.json ]]; then
   fi   
 fi 
 
+if [[ ! -f /usercode/.vscode/240config/keybindings.json ]]; then 
+  echo "Copying keybindings.json to user data"
+  cp /usercode/.vscode/240config/keybindings.json /userdata/vscode/User/keybindings.json
+  touch /userdata/vscode/User/keybindings.json
+fi 
+
+
 question_file=$(ls /usercode/??-??*questions.json 2> /dev/null)
 ret=$?
 if [[ $ret -eq 0 ]]; then
