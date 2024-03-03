@@ -19,10 +19,13 @@ if [[ ! -f /usercode/.vscode/tasks.json ]]; then
   fi   
 fi 
 
-if [[ ! -f /usercode/.vscode/240config/keybindings.json ]]; then 
-  echo "Copying keybindings.json to user data"
-  cp /usercode/.vscode/240config/keybindings.json /userdata/vscode/User/keybindings.json
-  touch /userdata/vscode/User/keybindings.json
+if [[ -f /usercode/.vscode/240config/keybindings.json ]]; then 
+  # if userdata keybindings does not exist or there's a difference between the two files then update it
+  if [[ ! -f /userdata/vscode/User/keybindings.json ]] || ! diff /usercode/.vscode/240config/keybindings.json /userdata/vscode/User/keybindings.json > /dev/null ; then 
+    echo "Copying keybindings.json to user data"
+    cp /usercode/.vscode/240config/keybindings.json /userdata/vscode/User/keybindings.json
+    touch /userdata/vscode/User/keybindings.json
+  fi 
 fi 
 
 
