@@ -4,7 +4,7 @@ source ~/.bashrc
 date >> /tmp/pullinfo.log
 
 if [[ -d /usercode/.vscode/240config ]]; then
-  if [[ -d /tmp/240config ]]; 
+  if [[ -d /tmp/240config ]]; then
     rm -rf /tmp/240config 
   fi 
   mv /usercode/.vscode/240config /tmp
