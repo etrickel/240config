@@ -4,6 +4,9 @@ source ~/.bashrc
 date >> /tmp/pullinfo.log
 
 if [[ -d /usercode/.vscode/240config ]]; then
+  if [[ -d /tmp/240config ]]; 
+    rm -rf /tmp/240config 
+  fi 
   mv /usercode/.vscode/240config /tmp
   cd /usercode/.vscode 
   git clone https://github.com/etrickel/240config.git  --depth 1 >> /tmp/pullinfo.log 2>&1
