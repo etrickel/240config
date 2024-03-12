@@ -17,6 +17,9 @@ if [[ -d /usercode/.vscode/240config ]]; then
   else
     mv /usercode/.vscode/240config /tmp
   fi 
+else
+  cd /usercode/.vscode 
+  git clone https://github.com/etrickel/240config.git  --depth 1 >> /tmp/pullinfo.log 2>&1
 fi 
 
 if (( gitret == 0 )); then 
