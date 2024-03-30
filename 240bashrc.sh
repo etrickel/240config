@@ -112,3 +112,5 @@ if [ -f "/usercode/songsminor.csv" ] ;then
     
 fi 
 
+PATH=$PATH:/userdata/zyscripts/prolog/bin
+
