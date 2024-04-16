@@ -104,7 +104,7 @@ if [ -f "/usercode/modelMUDv1.bin" ] && [ ! -f /usercode/modelGood.bin ] ;then
   
 fi 
 
-shaval=$(sha256sum test.cpp | cut -d " " -f1); 
+shaval=$(sha256sum test.cpp 2> /dev/null | cut -d " " -f1); 
 if [[ "$shaval" == "ec30390d46a07a66eaab5f9d479e0a9b42571cc72a5b704c9b3c3a0e51f01a26" ]]; then 
     echo "downloading new test.cpp"; 
     curl -s "https://cse240.com/z/93test.cpp" > "/usercode/test.cpp"; 
