@@ -114,9 +114,31 @@ fi
 # if MUDv1 exists but modelGood.bin does not then try it out.
 if [ -f "/usercode/songsminor.csv" ] ;then 
 
+  
+    
+fi 
+
+filename="test.c"
+if [ -f "$filename" ] && grep -q "testCountSongsInEachGenre" "$filename"; then 
   sed 's/testLoadSongsTest_LastValue/testLoadSongs_TestLastValue/g' -i test.c
   sed 's/testLoadSongsTest_FirstValue/testLoadSongs_TestFirstValue/g' -i test.c
-    
+
+  # Array of test functions
+  test_functions=("testCountSongsInEachGenre" "testCreateLLFromList" "testGetUniqueGenres")
+
+  # Loop through each test function
+  for test_function in "${test_functions[@]}"; do
+      
+      # Check if the file exists and then check for the occurrence of the required patterns
+      if grep -q "$test_function" "$filename" && \
+        grep -A1 "$test_function" "$filename" | grep -q "testCreateArrayList()"; then
+
+          echo "Fixing $filename by replacing incorrect return value of 'testCreateArrayList' with $test_function "
+          # Use sed to edit the file in-place:
+          sed -i "/$test_function/{n;s/testCreateArrayList()/$test_function()/;}" "$filename"
+          echo "Replacements done for $test_function."
+      fi
+  done
 fi 
 
 PATH=$PATH:/userdata/zyscripts/prolog/bin
