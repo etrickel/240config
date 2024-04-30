@@ -111,13 +111,6 @@ if [[ "$shaval" == "ec30390d46a07a66eaab5f9d479e0a9b42571cc72a5b704c9b3c3a0e51f0
 fi
 
 
-# if MUDv1 exists but modelGood.bin does not then try it out.
-if [ -f "/usercode/songsminor.csv" ] ;then 
-
-  
-    
-fi 
-
 filename="test.c"
 if [ -f "$filename" ] && grep -q "testCountSongsInEachGenre" "$filename"; then 
   sed 's/testLoadSongsTest_LastValue/testLoadSongs_TestLastValue/g' -i test.c
@@ -130,8 +123,7 @@ if [ -f "$filename" ] && grep -q "testCountSongsInEachGenre" "$filename"; then
   for test_function in "${test_functions[@]}"; do
       
       # Check if the file exists and then check for the occurrence of the required patterns
-      if grep -q "$test_function" "$filename" && \
-        grep -A1 "$test_function" "$filename" | grep -q "testCreateArrayList()"; then
+      if grep -q "$test_function" "$filename" && grep -A1 "$test_function" "$filename" | grep -q "testCreateArrayList()"; then
 
           echo "Fixing $filename by replacing incorrect return value of 'testCreateArrayList' with $test_function "
           # Use sed to edit the file in-place:
